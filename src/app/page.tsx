@@ -12,18 +12,24 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Info, MailQuestion } from "lucide-react";
+import { simpleEncrypt } from "@/actions";
 
 export default function Home() {
   const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     console.log(name);
     let params = new URLSearchParams();
-    params.append("n", name);
-    params.append("e", email);
+    const encname = await simpleEncrypt(name);
+    const encemail = await simpleEncrypt(email);
+    params.append("n", encname);
+    params.append("e", encemail);
+    setLoading(false);
     router.push(`/love?${params.toString()}`);
   };
 
@@ -59,7 +65,7 @@ export default function Home() {
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Add to library</p>
+                <p>Name of tour love / crush</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -83,7 +89,9 @@ export default function Home() {
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Add to library</p>
+                <p>
+                  Your email where we will send the acceptance notification ;)
+                </p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
