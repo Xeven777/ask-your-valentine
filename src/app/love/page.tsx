@@ -5,6 +5,7 @@ import { useState } from "react";
 import lovesvg from "../../assets/Love In The Air SVG Cut File.svg";
 import lovesvg2 from "../../assets/All You Need Is Love SVG Cut File.svg";
 import Image from "next/image";
+
 export default function Page() {
   const searchParams = useSearchParams();
   const [noCount, setNoCount] = useState(0);
