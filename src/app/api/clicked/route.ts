@@ -1,19 +1,14 @@
 import { generateEmailBody } from "@/actions";
-import { NextApiRequest, NextApiResponse } from "next";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextApiRequest, res: NextResponse) {
+export async function GET(req: Request, res: NextResponse) {
   // let ip = req.headers["x-real-ip"] as string;
   // const forwardedFor = req.headers["x-forwarded-for"] as string;
   // if (!ip && forwardedFor) {
   //   ip = forwardedFor?.split(",").at(0) ?? "Unknown";
   // }
   try {
-    let ip = req.headers["x-real-ip"] as string;
-    const forwardedFor = req.headers["x-forwarded-for"] as string;
-    if (!ip && forwardedFor) {
-      ip = forwardedFor?.split(",").at(0) ?? "Unknown";
-    }
+    let ip = req.headers.get("x-real-ip");
     // const userData = {
     //   ip: req.ip,
     //   region: req.geo?.region,
