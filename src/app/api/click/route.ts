@@ -2,7 +2,7 @@ import { NextRequest, NextResponse, userAgent } from "next/server";
 import { headers } from "next/headers";
 import { generateEmailBody, sendEmail } from "@/actions";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   const body = await req.json();
   const { email } = body;
 

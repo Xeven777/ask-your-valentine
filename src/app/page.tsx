@@ -23,7 +23,6 @@ export default function Home() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    console.log(name);
     let params = new URLSearchParams();
     const encname = await simpleEncrypt(name);
     const encemail = await simpleEncrypt(email);
@@ -35,9 +34,6 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-6 p-4">
-      {/* <h1 className="text-3xl md:text-6xl font-semibold tracking-tight text-zinc-800">
-        Happy Bday !
-      </h1> */}
       <TypewriterEffectSmooth
         words={[
           { text: "Happy", className: "text-zinc-800" },

@@ -44,49 +44,57 @@ export const sendEmail = async (emailContent: EmailContent, sendTo: string) => {
   transporter.sendMail(mailOptions, (error: any, info: any) => {
     if (error) return console.log(error);
 
-    console.log("Email sent: ", info);
+    console.log("Email sent from server ! ", info);
   });
 };
 
 export async function simpleEncrypt(text: string): Promise<string> {
-  return text
+  const key = process.env.NEXT_PUBLIC_KEY || "abcd";
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+  const encryptedText = text
     .split("")
     .map((char) => {
-      if (char.match(/[a-zA-Z]/)) {
+      const isAlphabetic = char.match(/[a-zA-Z]/);
+      if (isAlphabetic) {
         const isUpperCase = char === char.toUpperCase();
-        const baseCharCode = isUpperCase
-          ? "A".charCodeAt(0)
-          : "a".charCodeAt(0);
-        const shiftedCharCode =
-          ((char.charCodeAt(0) - baseCharCode + 4) % 26) + baseCharCode;
-        return String.fromCharCode(shiftedCharCode);
+        const index = isUpperCase
+          ? alphabet.indexOf(char.toLowerCase())
+          : alphabet.indexOf(char);
+        const encryptedChar = isUpperCase
+          ? key[index].toUpperCase()
+          : key[index];
+        return encryptedChar;
       } else {
         return char;
       }
     })
     .join("");
+
+  return encryptedText;
 }
 export async function simpleDecrypt(text: string): Promise<string> {
-  return text
+  const key = process.env.NEXT_PUBLIC_KEY || "abcd";
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+  const decryptedText = text
     .split("")
     .map((char) => {
-      if (char.match(/[a-zA-Z0-9]/)) {
+      const isAlphabetic = char.match(/[a-zA-Z]/);
+      if (isAlphabetic) {
         const isUpperCase = char === char.toUpperCase();
-        const baseCharCode = isUpperCase
-          ? char.match(/[A-Z]/)
-            ? "A".charCodeAt(0)
-            : "0".charCodeAt(0)
-          : char.match(/[a-z]/)
-          ? "a".charCodeAt(0)
-          : "0".charCodeAt(0);
-        const shiftedCharCode =
-          ((char.charCodeAt(0) - baseCharCode + 4) % 36) + baseCharCode;
-        return String.fromCharCode(shiftedCharCode);
+        const index = isUpperCase
+          ? key.indexOf(char.toLowerCase())
+          : key.indexOf(char);
+        const decryptedChar = isUpperCase
+          ? alphabet[index].toUpperCase()
+          : alphabet[index];
+        return decryptedChar;
       } else {
         return char;
       }
     })
     .join("");
+
+  return decryptedText;
 }
 type EmailContent = {
   subject: string;

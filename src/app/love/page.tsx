@@ -1,7 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { useSearchParams } from "next/navigation";
+import { toast } from "sonner";
 import { Footer } from "@/components/Footer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import lovesvg from "../../assets/Love In The Air SVG Cut File.svg";
 import lovesvg2 from "../../assets/All You Need Is Love SVG Cut File.svg";
 import Image from "next/image";
@@ -11,16 +13,38 @@ export default function Page() {
   const [noCount, setNoCount] = useState(0);
   const [yesPressed, setYesPressed] = useState(false);
   const yesButtonSize = noCount * 20 + 16;
-
+  const [name, setName] = useState("Cutie");
+  useEffect(() => {
+    setName(simpleDecrypt(searchParams.get("n") || ""));
+  }, [searchParams]);
   const handleNoClick = () => {
     setNoCount(noCount + 1);
   };
 
-  const handleYesClick = () => {
+  const handleYesClick = async () => {
     setYesPressed(true);
-    
-  };
+    const email = simpleDecrypt(searchParams.get("e") || "");
+    try {
+      const res = await fetch("/api/click", {
+        method: "POST",
+        body: JSON.stringify({ email: email }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
+      if (res.status === 200) {
+        console.log("Email sent");
+        toast("Response has been recorded! Thank you! 🥰");
+      } else {
+        console.error("Unexpected response:", res.status);
+        toast("Error sending response! Please try again later! 😢");
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+      toast("Error sending response! Please try again later! 😢");
+    }
+  };
   const getNoButtonText = () => {
     const phrases = [
       "No",
@@ -46,8 +70,6 @@ export default function Page() {
 
     return phrases[Math.min(noCount, phrases.length - 1)];
   };
-  const name = searchParams.get("n");
-  const email = searchParams.get("e");
 
   return (
     <div className="overflow-hidden flex flex-col items-center justify-center pt-4 h-screen -mt-16 selection:bg-rose-600 selection:text-white text-zinc-900">
@@ -79,7 +101,7 @@ export default function Page() {
             src="https://gifdb.com/images/high/cute-Love-bear-roses-ou7zho5oosxnpo6k.gif"
           />
           <h1 className="text-4xl md:text-6xl my-4 text-center riot">
-            Will you be my Valentine?
+            {name}, Will you be my Valentine?
           </h1>
           <div className="flex flex-wrap justify-center gap-2 items-center">
             <button
@@ -102,4 +124,29 @@ export default function Page() {
       <Footer />
     </div>
   );
+}
+
+function simpleDecrypt(text: string): string {
+  const key = process.env.NEXT_PUBLIC_KEY || "abcd";
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+  const decryptedText = text
+    .split("")
+    .map((char) => {
+      const isAlphabetic = char.match(/[a-zA-Z]/);
+      if (isAlphabetic) {
+        const isUpperCase = char === char.toUpperCase();
+        const index = isUpperCase
+          ? key.indexOf(char.toLowerCase())
+          : key.indexOf(char);
+        const decryptedChar = isUpperCase
+          ? alphabet[index].toUpperCase()
+          : alphabet[index];
+        return decryptedChar;
+      } else {
+        return char;
+      }
+    })
+    .join("");
+
+  return decryptedText;
 }
