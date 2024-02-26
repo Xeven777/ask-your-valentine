@@ -19,16 +19,17 @@ export async function POST(req: NextRequest) {
       "unknown ip address";
     let geoLocation = {};
     if (ip) {
-      const ipdata = await fetch(`http://ip-api.com/json/${ip}`);
+      const ipdata = await fetch(
+        `http://ip-api.com/json/${ip}?fields=status,country,region,regionName,city,district,zip,lat,lon,isp,org,as,mobile`
+      );
       geoLocation = await ipdata.json();
     }
     const userData = {
-      ok: true,
       ip_address: ip,
-      browser: browser?.name || "unknown browser",
-      os: os?.name || "unknown os",
-      device: device?.model || "unknown device",
-      geo: geoLocation ? geoLocation : "unknown location",
+      browser: browser?.name || "Unknown browser",
+      os: os?.name || "Unknown OS",
+      device: device?.model || "Unknown device",
+      geo: geoLocation ? geoLocation : null,
     };
     const emailbody = await generateEmailBody(userData);
     await sendEmail(emailbody, email);
