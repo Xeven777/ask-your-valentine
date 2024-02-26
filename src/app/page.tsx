@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Info, MailQuestion } from "lucide-react";
+import { HeartIcon, Info, Loader2Icon, MailQuestion } from "lucide-react";
 import { simpleEncrypt } from "@/actions";
 
 export default function Home() {
@@ -37,7 +37,7 @@ export default function Home() {
       <TypewriterEffectSmooth
         words={[
           { text: "Happy", className: "text-zinc-800" },
-          { text: "d", className: "text-rose-500" },
+          { text: "Valentines", className: "text-rose-500" },
         ]}
         className="tracking-tight"
         cursorClassName="cursor"
@@ -61,7 +61,7 @@ export default function Home() {
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Name of tour love / crush</p>
+                <p>Name of your love / crush</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -92,8 +92,13 @@ export default function Home() {
             </Tooltip>
           </TooltipProvider>
         </div>
-        <Button className="font-semibold" title="submit" type="submit">
-          Generate
+        <Button
+          disabled={loading}
+          className="font-semibold"
+          title="submit"
+          type="submit"
+        >
+          Generate {loading ? <Loader2Icon /> : <HeartIcon />}
         </Button>
       </form>
     </main>
