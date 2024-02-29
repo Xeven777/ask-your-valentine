@@ -23,7 +23,7 @@ export default function Page() {
 
   const handleYesClick = async () => {
     setYesPressed(true);
-    const email = simpleDecrypt(searchParams.get("e") || "");
+    const email = simpleDecrypt(decodeURIComponent(searchParams.get("e") || ""));
     try {
       const res = await fetch("/api/click", {
         method: "POST",
