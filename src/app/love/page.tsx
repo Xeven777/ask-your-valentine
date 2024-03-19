@@ -14,8 +14,16 @@ export default function Page() {
   const [yesPressed, setYesPressed] = useState(false);
   const yesButtonSize = noCount * 20 + 16;
   const [name, setName] = useState("Cutie");
+  const [question, setQuestion] = useState("Will you be my valentine?");
   useEffect(() => {
-    setName(simpleDecrypt(searchParams.get("n") || ""));
+    setName(
+      simpleDecrypt(decodeURIComponent(searchParams.get("n") || "Cutie"))
+    );
+    setQuestion(
+      simpleDecrypt(
+        decodeURIComponent(searchParams.get("q") || "Will you be my valentine?")
+      )
+    );
   }, [searchParams]);
   const handleNoClick = () => {
     setNoCount(noCount + 1);
@@ -23,23 +31,31 @@ export default function Page() {
 
   const handleYesClick = async () => {
     setYesPressed(true);
-    const email = simpleDecrypt(decodeURIComponent(searchParams.get("e") || ""));
+
+    const email = simpleDecrypt(
+      decodeURIComponent(searchParams.get("e") || "")
+    );
     try {
-      const res = await fetch("/api/click", {
+      const fetchPromise = fetch("/api/click", {
         method: "POST",
         body: JSON.stringify({ email: email }),
         headers: {
           "Content-Type": "application/json",
         },
       });
-
-      if (res.status === 200) {
-        console.log("Email sent");
-        toast("Response has been recorded! Thank you! 🥰");
-      } else {
-        console.error("Unexpected response:", res.status);
-        toast("Error sending response! Please try again later! 😢");
-      }
+      toast.promise(fetchPromise, {
+        loading: "Loading... We are sending your response! 💌",
+        success: "Wohoo! Message sent! 🥰",
+        error: "Oops,Error! Try again!",
+      });
+      const res = await fetchPromise;
+      // if (res.status === 200) {
+      //   console.log("Email sent");
+      //   toast("Response has been recorded! Thank you! 🥰");
+      // } else {
+      //   console.error("Unexpected response:", res.status);
+      //   toast("Error sending response! Please try again later! 😢");
+      // }
     } catch (error) {
       console.error("Fetch error:", error);
       toast("Error sending response! Please try again later! 😢");
@@ -100,8 +116,8 @@ export default function Page() {
             className="h-[230px] rounded-lg shadow-lg"
             src="https://gifdb.com/images/high/cute-Love-bear-roses-ou7zho5oosxnpo6k.gif"
           />
-          <h1 className="text-4xl md:text-6xl my-4 text-center riot">
-            {name}, Will you be my Valentine?
+          <h1 className="text-4xl md:text-6xl my-4 text-center riot max-w-4xl">
+            {name}, {question}
           </h1>
           <div className="flex flex-wrap justify-center gap-2 items-center">
             <button

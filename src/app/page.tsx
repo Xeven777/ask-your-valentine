@@ -11,12 +11,21 @@ import {
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { HeartIcon, Info, Loader2Icon, MailQuestion } from "lucide-react";
+import {
+  Feather,
+  HeartIcon,
+  Info,
+  Loader2Icon,
+  MailOpen,
+  MailQuestion,
+} from "lucide-react";
 import { simpleEncrypt } from "@/actions";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function Home() {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [question, setQuestion] = useState("Will you be my valentine?");
   const [email, setEmail] = useState("");
   const router = useRouter();
 
@@ -26,21 +35,23 @@ export default function Home() {
     let params = new URLSearchParams();
     const encname = await simpleEncrypt(name);
     const encemail = await simpleEncrypt(email);
-    params.append("n", encname);
-    params.append("e", encemail);
+    const encquestion = await simpleEncrypt(question);
+    params.append("n", encodeURIComponent(encname));
+    params.append("e", encodeURIComponent(encemail));
+    params.append("q", encodeURIComponent(encquestion));
     setLoading(false);
-    router.push(`/love?${encodeURIComponent(params.toString())}`);
+    router.push(`/love?${(params.toString())}`);
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-6 p-4">
-      <span className="inline-flex h-full animate-background-shine cursor-pointer items-center justify-center rounded-full border border-gray-800 bg-[linear-gradient(110deg,#000,45%,#4D4B4B,55%,#000)] bg-[length:250%_100%] px-3 py-1 text-xs font-medium text-gray-300">
+    <main className="flex min-h-screen flex-col items-center gap-6 p-4 pt-20">
+      <span className="inline-flex h-full animate-background-shine cursor-pointer items-center justify-center rounded-full border border-rose-400 bg-[linear-gradient(110deg,#f7043d,45%,#f76784,55%,#ea0036)] bg-[length:250%_100%] px-3 py-1 text-xs md:text-sm font-medium text-white">
         Trending
       </span>
       <TypewriterEffectSmooth
         words={[
-          { text: "Happy", className: "text-zinc-800" },
-          { text: "v", className: "text-rose-500" },
+          { text: "For My", className: "text-zinc-800" },
+          { text: "Love", className: "text-rose-500" },
         ]}
         className="tracking-tight"
         cursorClassName="cursor"
@@ -91,20 +102,45 @@ export default function Home() {
             </Tooltip>
           </TooltipProvider>
         </div>
+
+        <div className="flex">
+          <Textarea
+            required
+            value={question}
+            maxLength={100}
+            onChange={(e) => setQuestion(e.target.value)}
+            title="question"
+            placeholder="The question you want to ask your crush"
+          />
+
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <Feather className="h-5 w-5 m-2" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>
+                  The question you want to ask your crush.
+                  <br /> It can be anything, but keep it a yes or no question.
+                </p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
+
         <Button
           disabled={loading}
-          className="font-semibold "
+          className="font-semibold"
           title="submit"
           type="submit"
         >
-          Generate {loading ? <Loader2Icon /> : <HeartIcon />}
+          Generate{" "}
+          {loading ? (
+            <Loader2Icon className="h-5 w-5 m-2 animate-spin" />
+          ) : (
+            <HeartIcon className="h-5 w-5 m-2 animate-pulse" />
+          )}
         </Button>
-        <button class="group relative h-12 overflow-hidden overflow-x-hidden rounded-md bg-rose-600 px-8 py-2 text-neutral-50">
-          <span class="relative z-10">Hover Me</span>
-          <span class="absolute inset-0 overflow-hidden rounded-md">
-            <span class="absolute left-0 aspect-square w-full origin-center -translate-x-full rounded-full bg-rose-500 transition-all duration-500 group-hover:-translate-x-0 group-hover:scale-150"></span>
-          </span>
-        </button>
       </form>
     </main>
   );
