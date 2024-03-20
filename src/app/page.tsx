@@ -178,6 +178,7 @@ const Outputbox = ({ slink }: OutputboxProps) => {
       <div className="flex gap-2">
         {shareable ? (
           <Button
+            className="flex-1"
             onClick={() => {
               if (slink === "")
                 return toast.warning("Link is empty. Generate a link first!");
