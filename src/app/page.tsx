@@ -10,7 +10,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Copy,
   Feather,
@@ -43,6 +43,7 @@ export default function Home() {
     params.append("e", encodeURIComponent(encemail));
     params.append("q", encodeURIComponent(encquestion));
     setLoading(false);
+    toast.success("Link Generated!❤️");
     setLink(`${window.location.href}love?${params.toString()}`);
   };
 
@@ -157,14 +158,18 @@ interface OutputboxProps {
 }
 const Outputbox = ({ slink }: OutputboxProps) => {
   const [shareable, setShareable] = useState(false);
-  if (navigator.share !== undefined) {
-    setShareable(true);
-  }
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setShareable(navigator.share !== undefined);
+    }
+  }, []);
 
   function copyLink(link: string) {
-    if (link === "") return toast("Link is empty. Generate a link first!");
-    navigator.clipboard.writeText(link);
-    toast("Link copied!");
+    if (link === "") return toast.error("Link is empty. Generate a link first!");
+    if (typeof window !== "undefined") {
+      navigator.clipboard.writeText(link);
+      toast.success("Link copied!💌");
+    }
   }
 
   return (
@@ -173,15 +178,16 @@ const Outputbox = ({ slink }: OutputboxProps) => {
       <div className="flex gap-2">
         {shareable ? (
           <Button
-            className="flex-1"
             onClick={() => {
               if (slink === "")
-                return toast("Link is empty. Generate a link first!");
-              navigator.share({
-                title: "Generate Link for your crush!",
-                text: "Generated Link for your crush!",
-                url: slink,
-              });
+                return toast.warning("Link is empty. Generate a link first!");
+              if (typeof window !== "undefined") {
+                navigator.share({
+                  title: "Generate Link for your crush!",
+                  text: "Generated Link for your crush!",
+                  url: slink,
+                });
+              }
             }}
           >
             Share <Share2 className="ml-2 h-5" />

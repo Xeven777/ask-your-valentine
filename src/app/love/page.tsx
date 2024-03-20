@@ -2,7 +2,6 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { toast } from "sonner";
-import { Footer } from "@/components/Footer";
 import { useEffect, useState } from "react";
 import lovesvg from "../../assets/Love In The Air SVG Cut File.svg";
 import lovesvg2 from "../../assets/All You Need Is Love SVG Cut File.svg";
@@ -137,7 +136,6 @@ export default function Page() {
           </div>
         </>
       )}
-      <Footer />
     </div>
   );
 }
