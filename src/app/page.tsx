@@ -1,6 +1,7 @@
 "use client";
 
 import { TypewriterEffectSmooth } from "@/components/Text";
+import wapicon from "../assets/whatsapp.svg";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -9,25 +10,27 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
+  Copy,
   Feather,
   HeartIcon,
   Info,
   Loader2Icon,
-  MailOpen,
   MailQuestion,
+  Share2,
 } from "lucide-react";
 import { simpleEncrypt } from "@/actions";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
+import Image from "next/image";
 
 export default function Home() {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [question, setQuestion] = useState("Will you be my valentine?");
   const [email, setEmail] = useState("");
-  const router = useRouter();
+  const [link, setLink] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,23 +43,26 @@ export default function Home() {
     params.append("e", encodeURIComponent(encemail));
     params.append("q", encodeURIComponent(encquestion));
     setLoading(false);
-    router.push(`/love?${(params.toString())}`);
+    setLink(`${window.location.href}love?${params.toString()}`);
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center gap-6 p-4 pt-20">
+    <main className="flex min-h-screen flex-col items-center gap-6 p-4 pt-16 caret-rose-500 selection:bg-rose-500 selection:text-white">
       <span className="inline-flex h-full animate-background-shine cursor-pointer items-center justify-center rounded-full border border-rose-400 bg-[linear-gradient(110deg,#f7043d,45%,#f76784,55%,#ea0036)] bg-[length:250%_100%] px-3 py-1 text-xs md:text-sm font-medium text-white">
         Trending
       </span>
       <TypewriterEffectSmooth
         words={[
           { text: "For My", className: "text-zinc-800" },
-          { text: "Love", className: "text-rose-500" },
+          { text: "Love", className: "text-rose-600" },
         ]}
         className="tracking-tight"
         cursorClassName="cursor"
       />
-      <form onSubmit={handleSubmit} className="flex flex-col gap-2 ">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-2 w-full max-w-sm"
+      >
         <div className="flex">
           <Input
             value={name}
@@ -84,9 +90,9 @@ export default function Home() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            title="name"
+            title="email"
             placeholder="Your Email"
-            type="text"
+            type="email"
           />
 
           <TooltipProvider>
@@ -142,6 +148,62 @@ export default function Home() {
           )}
         </Button>
       </form>
+      <Outputbox slink={link} />
     </main>
   );
 }
+interface OutputboxProps {
+  slink: string;
+}
+const Outputbox = ({ slink }: OutputboxProps) => {
+  const [shareable, setShareable] = useState(false);
+  if (navigator.share !== undefined) {
+    setShareable(true);
+  }
+
+  function copyLink(link: string) {
+    if (link === "") return toast("Link is empty. Generate a link first!");
+    navigator.clipboard.writeText(link);
+    toast("Link copied!");
+  }
+
+  return (
+    <div className="flex flex-col gap-1 w-full max-w-sm">
+      <Input readOnly value={slink} placeholder="Link will be generated here" />
+      <div className="flex gap-2">
+        {shareable ? (
+          <Button
+            className="flex-1"
+            onClick={() => {
+              if (slink === "")
+                return toast("Link is empty. Generate a link first!");
+              navigator.share({
+                title: "Generate Link for your crush!",
+                text: "Generated Link for your crush!",
+                url: slink,
+              });
+            }}
+          >
+            Share <Share2 className="ml-2 h-5" />
+          </Button>
+        ) : (
+          <Button className="flex-1" onClick={() => copyLink(slink)}>
+            Copy <Copy className="ml-2 h-5" />
+          </Button>
+        )}
+
+        <Button asChild className="bg-green-600 hover:bg-green-500 flex-1">
+          <a
+            href={`https://wa.me/?text=${encodeURIComponent(
+              `Hey! I want to show you something !! Click on this link to see : ${slink}`
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Whatsapp <Image src={wapicon} alt="Wap" className="ml-2 h-5" />
+          </a>
+        </Button>
+      </div>
+    </div>
+  );
+};
