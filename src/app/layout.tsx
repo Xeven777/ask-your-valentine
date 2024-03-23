@@ -7,8 +7,26 @@ import { Toaster } from "@/components/ui/sonner";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "For My Valentine!",
-  description: "A cute website to ask your crush out!",
+  title: "Ask Your Love!",
+  description:
+    "A cute website to ask your crush something you always wanted to!",
+  metadataBase: new URL("https://askyourlove.vercel.app/"),
+  openGraph: {
+    type: "website",
+    images: [
+      {
+        url: "",
+        width: 1200,
+        height: 600,
+      },
+    ],
+  },
+  manifest: "/manifest.json",
+
+  icons: {
+    icon: "./favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({

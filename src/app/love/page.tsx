@@ -47,14 +47,6 @@ export default function Page() {
         success: "Wohoo! Message sent! 🥰",
         error: "Oops,Error! Try again!",
       });
-      const res = await fetchPromise;
-      // if (res.status === 200) {
-      //   console.log("Email sent");
-      //   toast("Response has been recorded! Thank you! 🥰");
-      // } else {
-      //   console.error("Unexpected response:", res.status);
-      //   toast("Error sending response! Please try again later! 😢");
-      // }
     } catch (error) {
       console.error("Fetch error:", error);
       toast("Error sending response! Please try again later! 😢");

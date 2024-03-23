@@ -24,6 +24,8 @@ import { simpleEncrypt } from "@/actions";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import Image from "next/image";
+import heart from "../assets/heart.png";
+import IconHome from "@/components/HomeLink";
 
 export default function Home() {
   const [name, setName] = useState("");
@@ -52,13 +54,34 @@ export default function Home() {
       <span className="inline-flex h-full animate-background-shine cursor-pointer items-center justify-center rounded-full border border-rose-400 bg-[linear-gradient(110deg,#f7043d,45%,#f76784,55%,#ea0036)] bg-[length:250%_100%] px-3 py-1 text-xs md:text-sm font-medium text-white">
         Trending
       </span>
+      <IconHome />
       <TypewriterEffectSmooth
         words={[
-          { text: "For My", className: "text-zinc-800" },
-          { text: "Love", className: "text-rose-600" },
+          { text: "Ask Your", className: "text-zinc-800" },
+          { text: "", className: "text-rose-500" },
         ]}
         className="tracking-tight"
         cursorClassName="cursor"
+      />
+      <Image
+        src={heart}
+        alt="heart"
+        className="rounded-lg absolute top-20 -right-44 -rotate-12 hover:rotate-0 transition-all duration-500 ease-in-out"
+      />
+      <Image
+        src={heart}
+        alt="heart"
+        className="rounded-lg absolute top-12 -left-24 rotate-12 hover:rotate-0 transition-all duration-500 ease-in-out"
+      />
+      <Image
+        src={heart}
+        alt="heart"
+        className="rounded-lg absolute -bottom-60 right-0 -rotate-[30deg] hover:rotate-0 transition-all duration-500 ease-in-out"
+      />
+      <Image
+        src={heart}
+        alt="heart"
+        className="rounded-lg absolute -bottom-64 -left-4 rotate-[25deg] hover:rotate-0 transition-all duration-500 ease-in-out"
       />
       <form
         onSubmit={handleSubmit}
@@ -153,6 +176,7 @@ export default function Home() {
     </main>
   );
 }
+
 interface OutputboxProps {
   slink: string;
 }
@@ -165,7 +189,8 @@ const Outputbox = ({ slink }: OutputboxProps) => {
   }, []);
 
   function copyLink(link: string) {
-    if (link === "") return toast.error("Link is empty. Generate a link first!");
+    if (link === "")
+      return toast.error("Link is empty. Generate a link first!");
     if (typeof window !== "undefined") {
       navigator.clipboard.writeText(link);
       toast.success("Link copied!💌");
@@ -174,7 +199,12 @@ const Outputbox = ({ slink }: OutputboxProps) => {
 
   return (
     <div className="flex flex-col gap-1 w-full max-w-sm">
-      <Input readOnly value={slink} placeholder="Link will be generated here" />
+      <Input
+        readOnly
+        value={slink}
+        placeholder="Link will be generated here"
+        className="border border-rose-500/80"
+      />
       <div className="flex gap-2">
         {shareable ? (
           <Button
@@ -183,8 +213,8 @@ const Outputbox = ({ slink }: OutputboxProps) => {
                 return toast.warning("Link is empty. Generate a link first!");
               if (typeof window !== "undefined") {
                 navigator.share({
-                  title: "Generate Link for your crush!",
-                  text: "Generated Link for your crush!",
+                  title: "Send to your crush!",
+                  text: "Hey! There something I want to show you. Click on the link to see it",
                   url: slink,
                 });
               }
