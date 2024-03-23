@@ -25,7 +25,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import Image from "next/image";
 import heart from "../assets/heart.png";
-import IconHome from "@/components/HomeLink";
 
 export default function Home() {
   const [name, setName] = useState("");
@@ -54,11 +53,10 @@ export default function Home() {
       <span className="inline-flex h-full animate-background-shine cursor-pointer items-center justify-center rounded-full border border-rose-400 bg-[linear-gradient(110deg,#f7043d,45%,#f76784,55%,#ea0036)] bg-[length:250%_100%] px-3 py-1 text-xs md:text-sm font-medium text-white">
         Trending
       </span>
-      <IconHome />
       <TypewriterEffectSmooth
         words={[
           { text: "Ask Your", className: "text-zinc-800" },
-          { text: "", className: "text-rose-500" },
+          { text: "Love", className: "text-rose-500" },
         ]}
         className="tracking-tight"
         cursorClassName="cursor"
@@ -66,22 +64,22 @@ export default function Home() {
       <Image
         src={heart}
         alt="heart"
-        className="rounded-lg absolute top-20 -right-44 -rotate-12 hover:rotate-0 transition-all duration-500 ease-in-out"
+        className="rounded-lg absolute -z-10 lg:z-0 -top-10 -right-64 lg:top-5 lg:-right-44 -rotate-[25deg] hover:rotate-0 anim"
       />
       <Image
         src={heart}
         alt="heart"
-        className="rounded-lg absolute top-12 -left-24 rotate-12 hover:rotate-0 transition-all duration-500 ease-in-out"
+        className="rounded-lg absolute -z-10 lg:z-0 top-0 -left-64 lg:top-12 lg:-left-24 rotate-12 hover:rotate-0 anim"
       />
       <Image
         src={heart}
         alt="heart"
-        className="rounded-lg absolute -bottom-60 right-0 -rotate-[30deg] hover:rotate-0 transition-all duration-500 ease-in-out"
+        className="rounded-lg absolute -z-10 lg:z-0 -bottom-20 -right-2/3 lg:-bottom-60 lg:right-0 -rotate-[30deg] hover:rotate-0 anim"
       />
       <Image
         src={heart}
         alt="heart"
-        className="rounded-lg absolute -bottom-64 -left-4 rotate-[25deg] hover:rotate-0 transition-all duration-500 ease-in-out"
+        className="rounded-lg absolute -z-10 lg:z-0 -bottom-16 -left-48 lg:-bottom-64 lg:-left-4 rotate-[25deg] hover:rotate-0 anim"
       />
       <form
         onSubmit={handleSubmit}

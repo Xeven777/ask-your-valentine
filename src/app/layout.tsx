@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "",
+        url: "https://i.imgur.com/KuXyyull.png",
         width: 1200,
         height: 600,
       },
@@ -39,7 +39,7 @@ export default function RootLayout({
     <html lang="en">
       {process.env.NODE_ENV === "production" ? <Clarity /> : null}
       <body className={montserrat.className}>
-        <div className="absolute top-0 z-[-2] h-screen w-screen transform bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]">
+        <div className="absolute top-0 z-[-2] h-screen w-screen transform bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)] overflow-hidden">
           {children}
           <Footer />
         </div>
