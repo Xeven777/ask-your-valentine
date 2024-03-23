@@ -63,23 +63,27 @@ export default function Home() {
       />
       <Image
         src={heart}
+        placeholder="blur"
         alt="heart"
-        className="rounded-lg absolute -z-10 lg:z-0 -top-10 -right-64 lg:top-5 lg:-right-44 -rotate-[25deg] hover:rotate-0 anim"
+        className="rounded-full absolute -z-10 lg:z-0 -top-10 -right-64 lg:top-5 lg:-right-44 -rotate-[25deg] hover:rotate-0 anim"
       />
       <Image
         src={heart}
+        placeholder="blur"
         alt="heart"
-        className="rounded-lg absolute -z-10 lg:z-0 top-0 -left-64 lg:top-12 lg:-left-24 rotate-12 hover:rotate-0 anim"
+        className="rounded-full absolute -z-10 lg:z-0 top-0 -left-64 lg:top-12 lg:-left-24 rotate-12 hover:rotate-0 anim"
       />
       <Image
         src={heart}
+        placeholder="blur"
         alt="heart"
-        className="rounded-lg absolute -z-10 lg:z-0 -bottom-20 -right-2/3 lg:-bottom-60 lg:right-0 -rotate-[30deg] hover:rotate-0 anim"
+        className="rounded-full absolute -z-10 lg:z-0 -bottom-20 -right-2/3 lg:-bottom-60 lg:right-0 -rotate-[30deg] hover:rotate-0 anim"
       />
       <Image
         src={heart}
+        placeholder="blur"
         alt="heart"
-        className="rounded-lg absolute -z-10 lg:z-0 -bottom-16 -left-48 lg:-bottom-64 lg:-left-4 rotate-[25deg] hover:rotate-0 anim"
+        className="rounded-full absolute -z-10 lg:z-0 -bottom-16 -left-48 lg:-bottom-64 lg:-left-4 rotate-[25deg] hover:rotate-0 anim"
       />
       <form
         onSubmit={handleSubmit}

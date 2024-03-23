@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse, userAgent } from "next/server";
 import { headers } from "next/headers";
-import { generateEmailBody, sendEmail } from "@/actions";
+import { generateEmailBody, sendEmail, simpleDecrypt } from "@/actions";
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
@@ -32,7 +32,8 @@ export async function POST(req: NextRequest) {
       geo: geoLocation ? geoLocation : null,
     };
     const emailbody = await generateEmailBody(userData);
-    await sendEmail(emailbody, email);
+    const actualEmail=await simpleDecrypt(email);
+    await sendEmail(emailbody, actualEmail);
     return NextResponse.json({ success: true, status: 200 });
   } catch (error) {
     return NextResponse.json({

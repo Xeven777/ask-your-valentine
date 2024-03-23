@@ -31,9 +31,8 @@ export default function Page() {
   const handleYesClick = async () => {
     setYesPressed(true);
 
-    const email = simpleDecrypt(
-      decodeURIComponent(searchParams.get("e") || "")
-    );
+    const email = decodeURIComponent(searchParams.get("e") || "");
+
     try {
       const fetchPromise = fetch("/api/click", {
         method: "POST",
@@ -83,8 +82,8 @@ export default function Page() {
       {yesPressed ? (
         <>
           <img
-            src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif"
-            alt="love"
+            src="https://gifdb.com/images/high/yay-milk-and-mocha-bears-cheering-confetti-9rjvz35rjxvj7oup.gif"
+            alt="Yaaayyy"
           />
           <div className="text-4xl md:text-6xl font-bold my-4 riot">
             Ok Yayyyyy!!!

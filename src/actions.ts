@@ -8,7 +8,7 @@ export async function generateEmailBody(ipdata: any) {
     <div style="font-family:sans;">
     <h1>Hello friend !</h1>
     <h2>You got a response 💌😍</h3>
-    <div style="border: 1px solid #ff4968; padding: 10px; background-color:rgb(56, 23, 29,0.4);border-radius:15px;color:white;">
+    <div style="border: 1px solid #ff4968; padding: 10px; background-color:rgb(56, 23, 29,0.7);border-radius:15px;color:white;">
       <h3>Here are the details of who clicked "Yes" :</h3>
       <ul>
         <li>IP Address: ${ipdata.ip_address || "unknown"}</li>
