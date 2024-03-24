@@ -5,11 +5,8 @@ import { headers } from "next/headers";
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = headers();
   const fullUrl = headersList.get("referer") || "";
-
-  console.log(fullUrl);
   const urlParams = new URLSearchParams(new URL(fullUrl).search);
   const n = await simpleDecrypt(urlParams.get("n") || "");
-  console.log(n);
 
   return {
     title: "Hey " + n || "Cutie",

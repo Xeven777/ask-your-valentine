@@ -25,6 +25,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import Image from "next/image";
 import heart from "../assets/heart.png";
+import { Footer } from "@/components/Footer";
+import Link from "next/link";
 
 export default function Home() {
   const [name, setName] = useState("");
@@ -49,7 +51,13 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center gap-6 p-4 pt-16 caret-rose-500 selection:bg-rose-500 selection:text-white">
+    <main className="flex max-h-screen flex-col items-center gap-6 p-4 md:pt-16 pt-28 caret-rose-500 selection:bg-rose-500 selection:text-white">
+      <Button
+        variant="ghost"
+        className="backdrop-blur font-semibold shadow bg-gradient-to-bl from-white/40 to-slate-400/30 absolute top-4 right-3 md:right-20 z-30"
+      >
+        <Link href="/about">About</Link>
+      </Button>
       <span className="inline-flex h-full animate-background-shine cursor-pointer items-center justify-center rounded-full border border-rose-400 bg-[linear-gradient(110deg,#f7043d,45%,#f76784,55%,#ea0036)] bg-[length:250%_100%] px-3 py-1 text-xs md:text-sm font-medium text-white">
         Trending
       </span>
@@ -175,6 +183,7 @@ export default function Home() {
         </Button>
       </form>
       <Outputbox slink={link} />
+      <Footer />
     </main>
   );
 }

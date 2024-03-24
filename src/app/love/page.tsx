@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import lovesvg from "../../assets/Love In The Air SVG Cut File.svg";
 import lovesvg2 from "../../assets/All You Need Is Love SVG Cut File.svg";
 import Image from "next/image";
+import { Footer } from "@/components/Footer";
 
 export default function Page() {
   const searchParams = useSearchParams();
@@ -125,6 +126,7 @@ export default function Page() {
               {noCount === 0 ? "No" : getNoButtonText()}
             </button>
           </div>
+          <Footer />
         </>
       )}
     </div>
