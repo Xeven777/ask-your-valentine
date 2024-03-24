@@ -64,5 +64,5 @@
   font-style: normal;
 }
 .anim {
-  @apply transition-all duration-500 ease-in-out animate-in slide-in-from-top-3;
+  @apply transition-all duration-500 ease-in-out animate-in slide-in-from-top-3 active:scale-75;
 }
