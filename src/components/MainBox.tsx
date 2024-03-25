@@ -79,14 +79,15 @@ const MainBox = ({ searchParams }: { searchParams: SearchParams }) => {
   };
 
   return (
-    <div className="flex flex-col gap-2 items-center justify-center px-4">
+    <div className="flex flex-col gap-2 items-center justify-center mt-6 px-4 max-w-xl">
       {yesPressed ? (
         <>
           <img
             src="https://gifdb.com/images/high/yay-milk-and-mocha-bears-cheering-confetti-9rjvz35rjxvj7oup.gif"
             alt="Yaaayyy"
+            className="w-full h-auto rounded-lg shadow-md"
           />
-          <div className="text-4xl md:text-6xl font-bold my-4 riot">
+          <div className="text-4xl md:text-7xl font-bold my-4 riot">
             Ok Yayyyyy!!!
           </div>
         </>
@@ -104,7 +105,7 @@ const MainBox = ({ searchParams }: { searchParams: SearchParams }) => {
           />
           <img
             alt="love"
-            className="h-[230px] rounded-lg shadow-lg mx-auto"
+            className="h-[250px] rounded-lg shadow-lg mx-auto"
             src="https://gifdb.com/images/high/cute-Love-bear-roses-ou7zho5oosxnpo6k.gif"
           />
           <h1 className="text-4xl md:text-6xl my-4 text-center riot max-w-4xl">
