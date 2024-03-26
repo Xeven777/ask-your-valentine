@@ -51,7 +51,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex max-h-screen flex-col items-center gap-6 p-4 md:pt-16 pt-28 caret-rose-500 selection:bg-rose-500 selection:text-white">
+    <main className="flex max-h-screen flex-col items-center gap-6 p-4 md:pt-16 pt-28 caret-rose-500">
       <Button
         variant="ghost"
         className="backdrop-blur font-semibold shadow bg-gradient-to-bl from-white/40 to-slate-400/30 absolute top-4 right-3 md:right-20 z-30"

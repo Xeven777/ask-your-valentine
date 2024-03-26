@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useEffect, useState } from "react";
-import { Footer } from "./Footer";
 import { toast } from "sonner";
 import Image from "next/image";
 import lovesvg from "../assets/Love In The Air SVG Cut File.svg";
 import lovesvg2 from "../assets/All You Need Is Love SVG Cut File.svg";
+import Link from "next/link";
 interface SearchParams {
   q: string;
   n: string;
@@ -160,3 +160,16 @@ export function simpleDecrypt(text: string): string {
 
   return decryptedText;
 }
+const Footer = () => {
+  return (
+    <Link
+      className="fixed bottom-1 right-2 backdrop-blur-md opacity-80 hover:opacity-95 border py-1 px-2 rounded-md border-rose-300"
+      href="/"
+    >
+      Made using this{" "}
+      <span role="img" aria-label="heart">
+        ❤️
+      </span>
+    </Link>
+  );
+};

@@ -3,7 +3,7 @@ import anish from "../assets/anish.webp";
 import { Github, Instagram, Linkedin } from "lucide-react";
 export default function Features() {
   return (
-    <div className="container px-4 md:px-6 mx-auto">
+    <div className="container px-4 md:px-6 mx-auto py-10">
       <div className="grid max-w-3xl gap-8 mx-auto items-center space-y-2 lg:gap-16">
         <div className="space-y-4 text-center">
           <h1 className="text-4xl font-bold tracking-tighter sm:text-6xl">
@@ -32,14 +32,14 @@ export default function Features() {
         <div className="grid gap-8">
           <h3 className="text-xl md:text-3xl font-bold">Key Features</h3>
           <div className="grid gap-4 md:grid-cols-2">
-            <div className="p-6 bg-white dark:bg-zinc-800 rounded-lg shadow-md">
+            <div className="p-6 bg-white dark:bg-zinc-800 rounded-lg shadow-md hover:scale-105 transition-all">
               <h4 className="text-lg font-semibold">Customizable Site🪄</h4>
               <p className="text-zinc-500 dark:text-zinc-400">
                 Customise the name , the question and the email however you
                 want🧑‍🚀
               </p>
             </div>
-            <div className="p-6 bg-white dark:bg-zinc-800 rounded-lg shadow-md">
+            <div className="p-6 bg-white dark:bg-zinc-800 rounded-lg shadow-md hover:scale-105 transition-all">
               <h4 className="text-lg font-semibold">
                 Get detailed response in Email💌
               </h4>
@@ -48,14 +48,14 @@ export default function Features() {
                 location, mobile and lot more of the response 🔍
               </p>
             </div>
-            <div className="p-6 bg-white dark:bg-zinc-800 rounded-lg shadow-md">
+            <div className="p-6 bg-white dark:bg-zinc-800 rounded-lg shadow-md hover:scale-105 transition-all">
               <h4 className="text-lg font-semibold">Most secure!🔒</h4>
               <p className="text-zinc-500 dark:text-zinc-400">
                 We dont store any data of the user. Not the name, question nor
                 the response! Even your email will be securedly encrypted💌
               </p>
             </div>
-            <div className="p-6 bg-white dark:bg-zinc-800 rounded-lg shadow-md">
+            <div className="p-6 bg-white dark:bg-zinc-800 rounded-lg shadow-md hover:scale-105 transition-all">
               <h4 className="text-lg font-semibold">
                 What else do you need?🤨
               </h4>
