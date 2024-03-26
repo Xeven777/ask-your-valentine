@@ -136,7 +136,7 @@ const MainBox = ({ searchParams }: { searchParams: SearchParams }) => {
 
 export default MainBox;
 
-export function simpleDecrypt(text: string): string {
+function simpleDecrypt(text: string): string {
   const key = process.env.NEXT_PUBLIC_KEY || "abcdefghijlkmnopqrstuvwxyz";
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
   const decryptedText = text
