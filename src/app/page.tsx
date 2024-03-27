@@ -176,9 +176,9 @@ export default function Home() {
         >
           Generate{" "}
           {loading ? (
-            <Loader2Icon className="h-5 w-5 m-2 animate-spin" />
+            <Loader2Icon className="h-5 w-5 mx-2 animate-spin" />
           ) : (
-            <HeartIcon className="h-5 w-5 m-2 animate-pulse" />
+            <HeartIcon className="h-5 w-5 mx-2 animate-pulse" />
           )}
         </Button>
       </form>
