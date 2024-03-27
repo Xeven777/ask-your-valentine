@@ -6,6 +6,7 @@ import Image from "next/image";
 import lovesvg from "../assets/Love In The Air SVG Cut File.svg";
 import lovesvg2 from "../assets/All You Need Is Love SVG Cut File.svg";
 import Link from "next/link";
+import { simpleDecrypt } from "@/actions";
 interface SearchParams {
   q: string;
   n: string;
@@ -18,12 +19,17 @@ const MainBox = ({ searchParams }: { searchParams: SearchParams }) => {
   const [name, setName] = useState("Cutie");
   const [question, setQuestion] = useState("Will you be my valentine?");
   useEffect(() => {
-    setName(simpleDecrypt(decodeURIComponent(searchParams.n || "Cutie")));
-    setQuestion(
-      simpleDecrypt(
+    const fetchData = async () => {
+      const decryptedName = await simpleDecrypt(
+        decodeURIComponent(searchParams.n || "Cutie")
+      );
+      setName(decryptedName);
+      const decryptedQuestion = await simpleDecrypt(
         decodeURIComponent(searchParams.q || "Will you be my valentine?")
-      )
-    );
+      );
+      setQuestion(decryptedQuestion);
+    };
+    fetchData();
   }, [searchParams]);
   const handleNoClick = () => {
     setNoCount(noCount + 1);
@@ -45,7 +51,7 @@ const MainBox = ({ searchParams }: { searchParams: SearchParams }) => {
       toast.promise(fetchPromise, {
         loading: "Loading... We are sending your response! 💌",
         success: "Wohoo! Message sent! 🥰",
-        error: "Oops,Error! Try again!",
+        error: "Oops, Error! Try again!",
       });
     } catch (error) {
       console.error("Fetch error:", error);
@@ -136,30 +142,30 @@ const MainBox = ({ searchParams }: { searchParams: SearchParams }) => {
 
 export default MainBox;
 
-function simpleDecrypt(text: string): string {
-  const key = process.env.NEXT_PUBLIC_KEY || "abcdefghijlkmnopqrstuvwxyz";
-  const alphabet = "abcdefghijklmnopqrstuvwxyz";
-  const decryptedText = text
-    .split("")
-    .map((char) => {
-      const isAlphabetic = char.match(/[a-zA-Z]/);
-      if (isAlphabetic) {
-        const isUpperCase = char === char.toUpperCase();
-        const index = isUpperCase
-          ? key.indexOf(char.toLowerCase())
-          : key.indexOf(char);
-        const decryptedChar = isUpperCase
-          ? alphabet[index].toUpperCase()
-          : alphabet[index];
-        return decryptedChar;
-      } else {
-        return char;
-      }
-    })
-    .join("");
+// function simpleDecrypt(text: string): string {
+//   const key = process.env.NEXT_PUBLIC_KEY || "abcdefghijlkmnopqrstuvwxyz";
+//   const alphabet = "abcdefghijklmnopqrstuvwxyz";
+//   const decryptedText = text
+//     .split("")
+//     .map((char) => {
+//       const isAlphabetic = char.match(/[a-zA-Z]/);
+//       if (isAlphabetic) {
+//         const isUpperCase = char === char.toUpperCase();
+//         const index = isUpperCase
+//           ? key.indexOf(char.toLowerCase())
+//           : key.indexOf(char);
+//         const decryptedChar = isUpperCase
+//           ? alphabet[index].toUpperCase()
+//           : alphabet[index];
+//         return decryptedChar;
+//       } else {
+//         return char;
+//       }
+//     })
+//     .join("");
 
-  return decryptedText;
-}
+//   return decryptedText;
+// }
 const Footer = () => {
   return (
     <Link
