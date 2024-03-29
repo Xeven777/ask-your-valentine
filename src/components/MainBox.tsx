@@ -55,7 +55,7 @@ const MainBox = ({ searchParams }: { searchParams: SearchParams }) => {
       });
     } catch (error) {
       console.error("Fetch error:", error);
-      toast("Error sending response! Please try again later! 😢");
+      toast.error("Error sending response! Please try again later! 😢");
     }
   };
   const getNoButtonText = () => {
@@ -85,13 +85,13 @@ const MainBox = ({ searchParams }: { searchParams: SearchParams }) => {
   };
 
   return (
-    <div className="flex flex-col gap-2 items-center justify-center mt-6 px-4 max-w-xl">
+    <div className="flex flex-col gap-2 items-center justify-center mt-6 px-4 max-w-xl ">
       {yesPressed ? (
         <>
           <img
             src="https://gifdb.com/images/high/yay-milk-and-mocha-bears-cheering-confetti-9rjvz35rjxvj7oup.gif"
             alt="Yaaayyy"
-            className="w-full h-auto rounded-lg shadow-md"
+            className="w-full h-auto rounded-lg shadow-md z-10"
           />
           <div className="text-4xl md:text-7xl font-bold my-4 riot">
             Ok Yayyyyy!!!
@@ -111,7 +111,7 @@ const MainBox = ({ searchParams }: { searchParams: SearchParams }) => {
           />
           <img
             alt="love"
-            className="h-[250px] rounded-lg shadow-lg mx-auto"
+            className="h-[250px] rounded-lg shadow-lg mx-auto z-10"
             src="https://gifdb.com/images/high/cute-Love-bear-roses-ou7zho5oosxnpo6k.gif"
           />
           <h1 className="text-4xl md:text-6xl my-4 text-center riot max-w-4xl">

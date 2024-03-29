@@ -51,7 +51,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex max-h-screen flex-col items-center gap-6 p-4 md:pt-16 pt-28 caret-rose-500">
+    <main className="flex min-h-svh max-h-[120vh] overflow-y-hidden flex-col items-center gap-6 p-4 md:pt-16 pt-28 caret-rose-500">
       <Button
         variant="ghost"
         className="backdrop-blur font-semibold shadow bg-gradient-to-bl from-white/40 to-slate-400/30 absolute top-4 right-3 md:right-20 z-30"
@@ -66,7 +66,7 @@ export default function Home() {
           { text: "Ask Your", className: "text-zinc-800" },
           { text: "Love", className: "text-rose-500" },
         ]}
-        className="tracking-tight"
+        className="tracking-tight z-10"
         cursorClassName="cursor"
       />
       <Image
