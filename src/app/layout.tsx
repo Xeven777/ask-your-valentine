@@ -41,7 +41,7 @@ export default function RootLayout({
       <body className={montserrat.className}>
         <div className="absolute top-0 z-[-2] h-screen w-screen transform bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)] overflow-x-hidden min-h-svh max-h-[120vh]">
           <Spotlight
-            fill="#ff516b"
+            fill="#ff7a8c"
             className="-top-32 left-0 md:left-64 md:-top-24 z-0"
           />
           {children}
