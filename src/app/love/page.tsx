@@ -12,7 +12,9 @@ export async function generateMetadata({
 }: {
   searchParams: SearchParams;
 }): Promise<Metadata> {
-  const name = await simpleDecrypt(decodeURIComponent(searchParams.n || "Cutie"));
+  const name = await simpleDecrypt(
+    decodeURIComponent(searchParams.n || "Cutie")
+  );
 
   return {
     title: "Hey " + name,
@@ -22,7 +24,7 @@ export async function generateMetadata({
 
 export default function Page({ searchParams }: { searchParams: SearchParams }) {
   return (
-    <div className="overflow-hidden flex flex-col items-center justify-center pt-4 h-screen -mt-16  text-zinc-900">
+    <div className="overflow-hidden flex flex-col items-center justify-center pt-4 min-h-svh max-h-[170vh] -mt-16  text-zinc-900">
       <MainBox searchParams={searchParams} />
     </div>
   );
