@@ -142,34 +142,10 @@ const MainBox = ({ searchParams }: { searchParams: SearchParams }) => {
 
 export default MainBox;
 
-// function simpleDecrypt(text: string): string {
-//   const key = process.env.NEXT_PUBLIC_KEY || "abcdefghijlkmnopqrstuvwxyz";
-//   const alphabet = "abcdefghijklmnopqrstuvwxyz";
-//   const decryptedText = text
-//     .split("")
-//     .map((char) => {
-//       const isAlphabetic = char.match(/[a-zA-Z]/);
-//       if (isAlphabetic) {
-//         const isUpperCase = char === char.toUpperCase();
-//         const index = isUpperCase
-//           ? key.indexOf(char.toLowerCase())
-//           : key.indexOf(char);
-//         const decryptedChar = isUpperCase
-//           ? alphabet[index].toUpperCase()
-//           : alphabet[index];
-//         return decryptedChar;
-//       } else {
-//         return char;
-//       }
-//     })
-//     .join("");
-
-//   return decryptedText;
-// }
 const Footer = () => {
   return (
     <Link
-      className="fixed bottom-1 right-2 backdrop-blur-md opacity-80 hover:opacity-95 border py-1 px-2 rounded-md border-rose-300"
+      className="fixed md:text-base text-sm bottom-1 right-2 backdrop-blur-md opacity-80 hover:opacity-95 border py-1 px-2 rounded-md border-rose-300"
       href="/"
     >
       Made using this{" "}

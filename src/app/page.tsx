@@ -68,7 +68,7 @@ export default function Home() {
       });
       setLoading(false);
       toast.success("Link Generated!❤️");
-      setLink(`${window.location.href}love?${params.toString()}`);
+      setLink(`${window.location.href}l?${params.toString()}`);
     },
     [name, email, question]
   );
