@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "Ask Your Love!",
   description:
     "A cute website to ask your crush something you always wanted to!",
-  metadataBase: new URL("https://askyourlove.vercel.app/"),
+  metadataBase: new URL("https://askyou.vercel.app/"),
   openGraph: {
     type: "website",
     images: [
