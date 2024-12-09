@@ -10,7 +10,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Input } from "@/components/ui/input";
-import { useEffect, useState } from "react";
+import { useState, useCallback, useMemo } from "react";
 import {
   Copy,
   Feather,
@@ -28,6 +28,23 @@ import heart from "../assets/heart.png";
 import { Footer } from "@/components/Footer";
 import Link from "next/link";
 
+const TooltipWrapper = ({
+  children,
+  content,
+}: {
+  children: React.ReactNode;
+  content: string;
+}) => (
+  <TooltipProvider>
+    <Tooltip>
+      <TooltipTrigger>{children}</TooltipTrigger>
+      <TooltipContent>
+        <p>{content}</p>
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
+);
+
 export default function Home() {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
@@ -35,20 +52,26 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [link, setLink] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    let params = new URLSearchParams();
-    const encname = await simpleEncrypt(name);
-    const encemail = await simpleEncrypt(email);
-    const encquestion = await simpleEncrypt(question);
-    params.append("n", encodeURIComponent(encname));
-    params.append("e", encodeURIComponent(encemail));
-    params.append("q", encodeURIComponent(encquestion));
-    setLoading(false);
-    toast.success("Link Generated!❤️");
-    setLink(`${window.location.href}love?${params.toString()}`);
-  };
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      setLoading(true);
+      const [encname, encemail, encquestion] = await Promise.all([
+        simpleEncrypt(name),
+        simpleEncrypt(email),
+        simpleEncrypt(question),
+      ]);
+      const params = new URLSearchParams({
+        n: encodeURIComponent(encname),
+        e: encodeURIComponent(encemail),
+        q: encodeURIComponent(encquestion),
+      });
+      setLoading(false);
+      toast.success("Link Generated!❤️");
+      setLink(`${window.location.href}love?${params.toString()}`);
+    },
+    [name, email, question]
+  );
 
   return (
     <main className="flex min-h-svh max-h-[120vh] overflow-y-hidden flex-col items-center gap-6 p-4 md:pt-16 pt-28 caret-rose-500">
@@ -106,17 +129,9 @@ export default function Home() {
             placeholder="Your Crush's name"
             type="text"
           />
-
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger>
-                <Info className="h-5 w-5 m-2" />
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Name of your love / crush</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <TooltipWrapper content="Name of your love / crush">
+            <Info className="h-5 w-5 m-2" />
+          </TooltipWrapper>
         </div>
 
         <div className="flex">
@@ -128,19 +143,9 @@ export default function Home() {
             placeholder="Your Email"
             type="email"
           />
-
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger>
-                <MailQuestion className="h-5 w-5 m-2" />
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>
-                  Your email where we will send the acceptance notification ;)
-                </p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <TooltipWrapper content="Your email where we will send the acceptance notification ;)">
+            <MailQuestion className="h-5 w-5 m-2" />
+          </TooltipWrapper>
         </div>
 
         <div className="flex">
@@ -152,20 +157,9 @@ export default function Home() {
             title="question"
             placeholder="The question you want to ask your crush"
           />
-
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger>
-                <Feather className="h-5 w-5 m-2" />
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>
-                  The question you want to ask your crush.
-                  <br /> It can be anything, but keep it a yes or no question.
-                </p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <TooltipWrapper content="The question you want to ask your crush. It can be anything, but keep it a yes or no question.">
+            <Feather className="h-5 w-5 m-2" />
+          </TooltipWrapper>
         </div>
 
         <Button
@@ -192,21 +186,19 @@ interface OutputboxProps {
   slink: string;
 }
 const Outputbox = ({ slink }: OutputboxProps) => {
-  const [shareable, setShareable] = useState(false);
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setShareable(navigator.share !== undefined);
-    }
-  }, []);
+  const shareable = useMemo(
+    () => typeof window !== "undefined" && navigator.share !== undefined,
+    []
+  );
 
-  function copyLink(link: string) {
+  const copyLink = useCallback((link: string) => {
     if (link === "")
       return toast.error("Link is empty. Generate a link first!");
     if (typeof window !== "undefined") {
       navigator.clipboard.writeText(link);
       toast.success("Link copied!💌");
     }
-  }
+  }, []);
 
   return (
     <div className="flex flex-col gap-1 w-full max-w-sm">

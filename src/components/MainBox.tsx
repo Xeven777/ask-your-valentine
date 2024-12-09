@@ -94,7 +94,7 @@ const MainBox = ({ searchParams }: { searchParams: SearchParams }) => {
             className="w-full h-auto rounded-lg shadow-md z-10"
           />
           <div className="text-4xl md:text-7xl font-bold my-4 riot">
-            Ok Yayyyyy!!!
+            Wohooo Yayyyyy!!!
           </div>
         </>
       ) : (

@@ -39,19 +39,18 @@ export async function generateEmailBody(ipdata: any) {
 }
 
 const transporter = nodemailer.createTransport({
-  pool: true,
-  service: "hotmail",
-  port: 2525,
+  secure: true,
+  host: "smtp.gmail.com",
+  port: 465,
   auth: {
-    user: "xevenbiswas@outlook.com",
+    user: process.env.EMAIL,
     pass: process.env.EMAIL_PW,
   },
-  maxConnections: 1,
 });
 
 export const sendEmail = async (emailContent: EmailContent, sendTo: string) => {
   const mailOptions = {
-    from: "xevenbiswas@outlook.com",
+    from: process.env.EMAIL,
     to: sendTo,
     html: emailContent.body,
     subject: emailContent.subject,
@@ -126,8 +125,6 @@ export async function simpleDecrypt(text: string): Promise<string> {
       }
     })
     .join("");
-  ;
-
   return decryptedText;
 }
 type EmailContent = {
