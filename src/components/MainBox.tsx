@@ -102,12 +102,12 @@ const MainBox = ({ searchParams }: { searchParams: SearchParams }) => {
           <Image
             src={lovesvg}
             alt="love"
-            className="fixed opacity-5 top-10 md:left-24 left-6 md:w-40 w-28"
+            className="fixed animate-pulse top-10 md:left-24 left-6 md:w-40 w-28"
           />
           <Image
             alt="love"
             src={lovesvg2}
-            className="fixed opacity-5 bottom-16 -z-10 md:right-24 right-10 md:w-40 w-32"
+            className="fixed animate-pulse bottom-16 -z-10 md:right-24 right-10 md:w-40 w-32"
           />
           <img
             alt="love"
