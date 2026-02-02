@@ -112,7 +112,7 @@ const MainBox = ({ searchParams }: { searchParams: SearchParams }) => {
           <img
             alt="love"
             className="h-[250px] rounded-lg shadow-lg mx-auto z-10"
-            src="https://gifdb.com/images/high/cute-Love-bear-roses-ou7zho5oosxnpo6k.gif"
+            src="https://gifdb.com/images/high/cute-love-bear-roses-ou7zho5oosxnpo6k.webp"
           />
           <h1 className="text-4xl md:text-6xl my-4 text-center riot max-w-4xl">
             {name}, {question}
